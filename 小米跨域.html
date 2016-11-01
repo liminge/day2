@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>京东首页无缝滚动轮播图</title>
+	<style>
+		*{margin:0;padding:0;list-style:none;}
+		#search-box{height:50px;width:296px;border:1px solid #ccc;margin:100px auto;}
+		#search-content{height:50px;width:225px;float:left;border:0;border-right:1px solid #ccc;font-size:20px;padding:0 10px;}
+		#search-btn{height:50px;width:50px;border:0;background:white;}
+		#search-btn:hover{background:#ff6700;outline:0;cursor:pointer}
+		#search-list{margin-top:3px;width:240px;}
+		#search-list li{height:25px;width:240px;background:skyblue;line-height:25px;border:1px solid #ccc;font-size:18px;}
+		#search-list li a{float:left;}
+		#search-list li span{float:right;}
+		#search-list2{margin-top:3px;width:240px;display:none;}
+		#search-list2 li{height:25px;width:240px;background:skyblue;line-height:25px;border:1px solid #ccc;font-size:18px;}
+		#search-list2 li a{float:left;}
+		#search-list2 li span{float:right;}
+	</style>
+</head>
+<body>
+	<form mathod='GET' action='javascript' id='search-box'>
+		<input type='text' id='search-content'/><input type='button' id='search-btn' value='搜索'/>
+
+		<ul id='search-list'></ul>
+
+		<ul id='search-list2'>
+			<li><a>小米手机5</a><span>约有11件</span></li>
+			<li><a>空气净化器2</a><span>约有1件</span></li>
+			<li><a>活塞耳机</a><span>约有4件</span></li>
+			<li><a>小米路由器</a><span>约有8件</span></li>
+			<li><a>移动电源</a><span>约有21件</span></li>
+			<li><a>运动相机</a><span>约有3件</span></li>
+			<li><a>小蚁摄像机</a><span>约有2件</span></li>
+			<li><a>小米体重秤</a><span>约有1件</span></li>
+			<li><a>小米插线板</a><span>约有3件</span></li>
+			<li><a>配件优惠套餐</a><span>约有32件</span></li>
+		</ul>
+	</form>
+</body>
+<script>
+	var oSearchBox=document.getElementById('search-box'),
+	 	oSearchBtn=document.getElementById('search-btn'),
+	 	oSearchContent=document.getElementById('search-content'),
+	 	oSearchList=document.getElementById('search-list');
+		oSearchList2=document.getElementById('search-list2');
+	 oSearchContent.oninput=oSearchContent.onpropertychange=function(){
+	 	if(this.value!==''){
+	 		
+	 		var oScript=document.createElement('script');
+	 			oScript.src='http://search.mi.com/search/expand?keyword='+this.value+'&jsonpcallback=cback';
+	 		document.body.appendChild(oScript);
+	 		document.body.removeChild(oScript);
+
+	 	}else{
+	 		oSearchList.innerHTML='';
+	 		//setStyle(oSearchList2,{display:'block'});
+	 	}
+
+
+	 }
+
+	oSearchContent.onfocus=function(){
+		setStyle(oSearchList2,{display:'block'});
+	}
+
+	oSearchContent.onblur=function(){
+		setStyle(oSearchList2,{display:'none'});
+	}
+	
+	
+
+
+
+
+	oSearchBox.onmouseenter=function(){
+		setStyle(oSearchBox,{border:'1px solid #666'})
+
+	}
+	oSearchBox.onmouseleave=function(){
+		setStyle(oSearchBox,{border:'1px solid #ccc'})
+
+	}
+	/*oSearchBtn.onmouseover=function(){
+		setStyle(oSearchBtn,{background:;})
+	}*/
+
+
+
+	function setStyle(obj,oTarget){
+		for(var sAttr in oTarget){
+			obj.style[sAttr]=oTarget[sAttr];
+		}
+	}
+
+	//创建回调函数
+
+	function cback(oData){
+		var sHtml='';
+
+		for(var i=0;i<oData.length;i++){
+			sHtml+='<li>'+'<a>'+oData[i].Key+'</a>'+'<span>'+'约有'+oData[i].Rst+'件'+'</span>'+'</li>'
+
+		}
+
+
+		oSearchList.innerHTML=sHtml;
+		
+	
+	}
+</script>
+
+</html>

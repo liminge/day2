@@ -1,0 +1,71 @@
+<!doctype html>
+<html>
+<head>
+<title>day.7.29</title>
+<meta charset="utf-8">
+<style>
+	#main{width:600px;padding:20px;background:skyblue;margin:100px auto;}
+	#box{width:600px;height:800px;}
+	#box{margin-top: 10px;font-size: 12px;background: #fff;background:yellow;}
+	#box li{border:1px solid #555;list-style:none;height:70px;background:#ccc;margin:10px 0;}
+	#main input{margin-top:20px;height:20px;width:50px;background:#ccc;}
+	#box li span{color:red;}
+	#box li a{margin-left:10px;}
+
+</style>
+
+</head>
+
+
+<body>
+<div id='main'>
+	
+	<div id='box'>
+
+
+	</div>
+
+	<input type='button' value='1' style='margin-left:150px;'/>
+	<input type='button' value='2' />
+	<input type='button' value='3' />
+	<input type='button' value='4' />
+	<input type='button' value='5' />
+</div>
+
+
+<script>
+	var main=document.getElementById('main');
+	var box=document.getElementById('box');
+	var btn=document.getElementsByTagName('input');
+	for(var i=0;i<btn.length;i++){
+		btn[i].index=i;
+		btn[i].onclick=function(){
+			var oScript=document.createElement('script');
+			oScript.src='http://sclub.jd.com/productpage/p-1337253-s-0-t-3-p-'+this.index+'.'+'html?callback=aaa';
+			document.body.appendChild(oScript);
+			document.body.removeChild(oScript);
+		}
+	}
+
+	function aaa(oData){
+		//console.log(oData);
+			var addr='',
+				con='';
+			for(var i =0; i < oData.comments.length; i++) {
+
+			addr += '<li>' +'<span>'+oData.comments[i].id+':'+'</span>' +'<a>'+oData.comments[i].content+'</a>'+'<p>'+oData.comments[i].referenceName+'</p>'+'<b>'+oData.comments[i].creationTime+'</b>'+ '</li>';
+			
+
+			}
+			
+			box.innerHTML = addr;
+			
+
+	}
+
+</script>
+
+</body>
+</html>
+
+
